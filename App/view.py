@@ -75,7 +75,7 @@ def menu_principal():
             numvertex = controller.totalStops(cont)
             print('Numero de vertices: ' + str(numvertex))
             print('Numero de arcos: ' + str(numedges))
-            print(x[1])
+            print('Numero de viajes:'+ str(x[1]))
             time_2 = process_time()
             print("Tiempo de ejecución: " + str(time_2-time_1))
         else:
