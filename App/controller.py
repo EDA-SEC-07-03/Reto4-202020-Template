@@ -68,12 +68,14 @@ def loadServices(analyzer, servicesfile):
     servicesfile = cf.data_dir + servicesfile
     input_file = csv.DictReader(open(servicesfile, encoding="utf-8"),
                                 delimiter=",")
-    lastservice = None
+    x = 0
     for service in input_file:
-        model.addStopConnection(analyzer, lastservice, service)
-        lastservice = service
+        servicess = service['start station id']
+        lastservice = service['end station id']
+        model.addStopConnection(analyzer, lastservice, servicess, service)
+        x += 1
     model.addRouteConnections(analyzer)
-    return analyzer
+    return (analyzer,x)
 
 # ___________________________________________________
 #  Funciones para consultas
@@ -129,3 +131,4 @@ def servedRoutes(analyzer):
     """
     maxvert, maxdeg = model.servedRoutes(analyzer)
     return maxvert, maxdeg
+

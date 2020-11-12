@@ -30,6 +30,7 @@ import config
 from App import controller
 from DISClib.ADT import stack
 import timeit
+from time import process_time
 assert config
 
 """
@@ -42,7 +43,7 @@ operación seleccionada.
 # ___________________________________________________
 #  Variables
 # ___________________________________________________
-servicefile = 'Data/201801-1-citibike-tripdata.csv'
+servicefile = '201801-4-citibike-tripdata.csv'
 initialStation = None
 recursionLimit = 20000
 # ___________________________________________________
@@ -53,36 +54,31 @@ def printMenu():
     print("*******************************************")
     print("Bienvenido")
     print("1- Inicializar Analizador")
-    print("2- Cargar información de buses de singapur")
+    print("2- Cargar información de Bicis")
     print("0-salir")
 """
 Menu principal
 """
 def menu_principal():
     while True:
-    printMenu()
-    inputs = input('Seleccione una opción para continuar\n>')
-
-    if int(inputs[0]) == 1:
-        print("\nInicializando....")
-        # cont es el controlador que se usará de acá en adelante
-        cont = controller.init()
-
-    elif int(inputs[0]) == 2:
-        print("\nCargando información de transporte de singapur ....")
-        controller.loadServices(cont, servicefile)
-        numedges = controller.totalConnections(cont)
-        numvertex = controller.totalStops(cont)
-        print('Numero de vertices: ' + str(numvertex))
-        print('Numero de arcos: ' + str(numedges))
-        print('El limite de recursion actual: ' + str(sys.getrecursionlimit()))
-        sys.setrecursionlimit(recursionLimit)
-        print('El limite de recursion se ajusta a: ' + str(recursionLimit))
-        executiontime = timeit.timeit(optionTwo, number=1)
-        print("Tiempo de ejecución: " + str(executiontime))
-
-    elif int(inputs[0]) == 3:
-        executiontime = timeit.timeit(optionThree, number=1)
-        print("Tiempo de ejecución: " + str(executiontime))
-
-
+        printMenu()
+        inputs = input('Seleccione una opción para continuar\n>')
+        if int(inputs[0]) == 1:
+            print("\nInicializando....")
+            # cont es el controlador que se usará de acá en adelante
+            cont = controller.init()
+        elif int(inputs[0]) == 2:
+            print("\nCargando información de Bicis....")
+            time_1 = process_time()
+            x = controller.loadServices(cont, servicefile)
+            numedges = controller.totalConnections(cont)
+            numvertex = controller.totalStops(cont)
+            print('Numero de vertices: ' + str(numvertex))
+            print('Numero de arcos: ' + str(numedges))
+            print(x[1])
+            time_2 = process_time()
+            print("Tiempo de ejecución: " + str(time_2-time_1))
+        else:
+            sys.exit(0)
+    sys.exit(0)
+menu_principal()

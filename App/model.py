@@ -73,7 +73,7 @@ def newAnalyzer():
 
 # Funciones para agregar informacion al grafo
 
-def addStopConnection(analyzer, lastservice, service):
+def addStopConnection(analyzer, lastservice, servicess, service):
     """
     Adiciona las estaciones al grafo como vertices y arcos entre las
     estaciones adyacentes.
@@ -86,10 +86,10 @@ def addStopConnection(analyzer, lastservice, service):
     Si la estacion sirve otra ruta, se tiene: 75009-101
     """
     try:
-        origin = formatVertex(lastservice)
-        destination = formatVertex(service)
+        origin = servicess
+        destination = lastservice
         addStation(analyzer, origin)
-        time = service['tripduration']
+        time = str(service['tripduration'])
         addStation(analyzer, destination)
         addConnection(analyzer, origin, destination, time)
         return analyzer
@@ -219,15 +219,13 @@ def servedRoutes(analyzer):
 # Funciones Helper
 # ==============================
 
-def cleanServiceDistance(lastservice, service):
+def cleanServiceDistance(service):
     """
     En caso de que el archivo tenga un espacio en la
     distancia, se reemplaza con cero.
     """
-    if service['Distance'] == '':
-        service['Distance'] = 0
-    if lastservice['Distance'] == '':
-        lastservice['Distance'] = 0
+    if int(service['tripduration']) == '':
+        service['tripduration'] = 0
 
 
 def formatVertex(service):
@@ -235,8 +233,8 @@ def formatVertex(service):
     Se formatea el nombrer del vertice con el id de la estación
     seguido de la ruta.
     """
-    name = service['start station id'] + '-'
-    name = name + service['ServiceNo']
+    name = service['start station name'] + '-'
+    name = name + service['start station id']
     return name
 
 
