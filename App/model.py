@@ -201,13 +201,13 @@ def servedRoutes(analyzer):
     Si existen varias rutas con el mismo numero se
     retorna una de ellas
     """
-    lstvert = m.keySet(analyzer['stops'])
+    lstvert = m.keySet(analyzer['stations'])
     itlstvert = it.newIterator(lstvert)
     maxvert = None
     maxdeg = 0
     while(it.hasNext(itlstvert)):
         vert = it.next(itlstvert)
-        lstroutes = m.get(analyzer['stops'], vert)['value']
+        lstroutes = m.get(analyzer['stations'], vert)['value']
         degree = lt.size(lstroutes)
         if(degree > maxdeg):
             maxvert = vert
