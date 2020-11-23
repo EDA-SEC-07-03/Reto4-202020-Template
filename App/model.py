@@ -144,7 +144,8 @@ def addConnection(analyzer, origin, destination, time):
 # Funciones de consulta
 # ==============================
 
-
+def req_cluster(analyser):
+    #llamar connectedComponents
 def connectedComponents(analyzer):
     """
     Calcula los componentes conectados del grafo
@@ -268,3 +269,8 @@ def compareroutes(route1, route2):
         return 1
     else:
         return -1
+# funciones del reto
+def ruta_resistencia(tiempo, id_estacion, grafo):
+    resistencia = 0
+    while resistencia != tiempo:
+        
