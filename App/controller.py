@@ -23,18 +23,9 @@
  * Dario Correal
  *
  """
-import csv
 import config as cf
 from App import model
-from DISClib.ADT.graph import gr
-from DISClib.ADT import map as m
-from DISClib.ADT import list as lt
-from DISClib.DataStructures import listiterator as it
-from DISClib.Algorithms.Graphs import scc
-from DISClib.Algorithms.Graphs import dijsktra as djk
-from DISClib.Utils import error as error
-assert config
-
+import csv
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -76,13 +67,14 @@ def loadServices(analyzer, servicesfile):
     servicesfile = cf.data_dir + servicesfile
     input_file = csv.DictReader(open(servicesfile, encoding="utf-8"),
                                 delimiter=",")
-    lastservice = None
+    x = 0
     for service in input_file:
-        if gr.getEdge(analyzer, lastservice, service) == None and lastservice != None:
-            model.addStopConnection(analyzer, lastservice, service)
-            lastservice = service
-            model.addRouteConnections(analyzer)
-    return analyzer
+        servicess = service['start station id']
+        lastservice = service['end station id']
+        model.addStopConnection(analyzer, lastservice, servicess, service)
+        x += 1
+    model.addRouteConnections(analyzer)
+    return (analyzer,x)
 
 # ___________________________________________________
 #  Funciones para consultas
@@ -90,7 +82,9 @@ def loadServices(analyzer, servicesfile):
 
 
 def totalStops(analyzer):
-
+    """
+    Total de paradas de autobus
+    """
     return model.totalStops(analyzer)
 
 
