@@ -23,10 +23,18 @@
  * Dario Correal
  *
  """
-
+import csv
 import config as cf
 from App import model
-import csv
+from DISClib.ADT.graph import gr
+from DISClib.ADT import map as m
+from DISClib.ADT import list as lt
+from DISClib.DataStructures import listiterator as it
+from DISClib.Algorithms.Graphs import scc
+from DISClib.Algorithms.Graphs import dijsktra as djk
+from DISClib.Utils import error as error
+assert config
+
 
 """
 El controlador se encarga de mediar entre la vista y el modelo.
@@ -70,9 +78,10 @@ def loadServices(analyzer, servicesfile):
                                 delimiter=",")
     lastservice = None
     for service in input_file:
-        model.addStopConnection(analyzer, lastservice, service)
-        lastservice = service
-    model.addRouteConnections(analyzer)
+        if gr.getEdge(analyzer, lastservice, service) == None and lastservice != None:
+            model.addStopConnection(analyzer, lastservice, service)
+            lastservice = service
+            model.addRouteConnections(analyzer)
     return analyzer
 
 # ___________________________________________________
@@ -81,9 +90,7 @@ def loadServices(analyzer, servicesfile):
 
 
 def totalStops(analyzer):
-    """
-    Total de paradas de autobus
-    """
+
     return model.totalStops(analyzer)
 
 

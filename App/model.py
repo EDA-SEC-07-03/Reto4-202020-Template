@@ -29,6 +29,7 @@ from DISClib.ADT import map as m
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from DISClib.Algorithms.Graphs import scc
+from DISClib.Algorithms.Graphs import dfo
 from DISClib.Algorithms.Graphs import dijsktra as djk
 from DISClib.Utils import error as error
 assert config
@@ -144,8 +145,7 @@ def addConnection(analyzer, origin, destination, time):
 # Funciones de consulta
 # ==============================
 
-def req_cluster(analyser):
-    #llamar connectedComponents
+
 def connectedComponents(analyzer):
     """
     Calcula los componentes conectados del grafo
@@ -272,5 +272,8 @@ def compareroutes(route1, route2):
 # funciones del reto
 def ruta_resistencia(tiempo, id_estacion, grafo):
     resistencia = 0
-    while resistencia != tiempo:
-        
+    rta = []
+    while resistencia <= tiempo:
+        x = dfo.DepthFirstOrder(grafo)
+        dfo.dfsVertex(grafo, x, id_estacion)
+
