@@ -43,11 +43,7 @@ operación seleccionada.
 # ___________________________________________________
 #  Variables
 # ___________________________________________________
-<<<<<<< HEAD
-servicefile = '201801-4-citibike-tripdata.csv'
-=======
 servicefile = '201801-1-citibike-tripdata.csv'
->>>>>>> j.quirogar
 initialStation = None
 recursionLimit = 20000
 # ___________________________________________________
