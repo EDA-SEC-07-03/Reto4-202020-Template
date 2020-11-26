@@ -58,12 +58,8 @@ def printMenu():
     print("*******************************************")
     print("Bienvenido")
     print("1- Inicializar Analizador")
-<<<<<<< HEAD
-    print("2- Cargar información de Bicis")
-=======
     print("2- Cargar información de buses de singapur")
     print("3- funcion 4")
->>>>>>> j.quirogar
     print("0-salir")
 """
 Menu principal
@@ -72,27 +68,6 @@ def menu_principal():
     while True:
         printMenu()
         inputs = input('Seleccione una opción para continuar\n>')
-<<<<<<< HEAD
-        if int(inputs[0]) == 1:
-            print("\nInicializando....")
-            # cont es el controlador que se usará de acá en adelante
-            cont = controller.init()
-        elif int(inputs[0]) == 2:
-            print("\nCargando información de Bicis....")
-            time_1 = process_time()
-            x = controller.loadServices(cont, servicefile)
-            numedges = controller.totalConnections(cont)
-            numvertex = controller.totalStops(cont)
-            print('Numero de vertices: ' + str(numvertex))
-            print('Numero de arcos: ' + str(numedges))
-            print('Numero de viajes:'+ str(x[1]))
-            time_2 = process_time()
-            print("Tiempo de ejecución: " + str(time_2-time_1))
-        else:
-            sys.exit(0)
-    sys.exit(0)
-menu_principal()
-=======
         
         if int(inputs[0]) == 1:
             print("\nInicializando....")
@@ -111,4 +86,3 @@ menu_principal()
         
 
 
->>>>>>> j.quirogar
