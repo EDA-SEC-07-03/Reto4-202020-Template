@@ -43,7 +43,11 @@ operación seleccionada.
 # ___________________________________________________
 #  Variables
 # ___________________________________________________
+<<<<<<< HEAD
 servicefile = '201801-4-citibike-tripdata.csv'
+=======
+servicefile = '201801-1-citibike-tripdata.csv'
+>>>>>>> j.quirogar
 initialStation = None
 recursionLimit = 20000
 # ___________________________________________________
@@ -54,7 +58,12 @@ def printMenu():
     print("*******************************************")
     print("Bienvenido")
     print("1- Inicializar Analizador")
+<<<<<<< HEAD
     print("2- Cargar información de Bicis")
+=======
+    print("2- Cargar información de buses de singapur")
+    print("3- funcion 4")
+>>>>>>> j.quirogar
     print("0-salir")
 """
 Menu principal
@@ -63,6 +72,7 @@ def menu_principal():
     while True:
         printMenu()
         inputs = input('Seleccione una opción para continuar\n>')
+<<<<<<< HEAD
         if int(inputs[0]) == 1:
             print("\nInicializando....")
             # cont es el controlador que se usará de acá en adelante
@@ -82,3 +92,23 @@ def menu_principal():
             sys.exit(0)
     sys.exit(0)
 menu_principal()
+=======
+        
+        if int(inputs[0]) == 1:
+            print("\nInicializando....")
+            cont = controller.init()
+        elif int(inputs[0]) == 2:
+            print("\nCargando información de transporte de singapur ....")
+            controller.loadServices(cont, servicefile)
+        elif int(inputs[0]) == 3:
+            tiempo = int(input("coloque el tiempo de resistencia: "))
+            id_station = int(input("coloque el id de la estacion de su interes: "))
+            y = controller.minimumCostPaths(cont, id_station)
+            print(y)
+        else:
+            sys.exit(0)
+menu_principal()
+        
+
+
+>>>>>>> j.quirogar

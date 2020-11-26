@@ -29,6 +29,8 @@ from DISClib.ADT import map as m
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from DISClib.Algorithms.Graphs import scc
+from DISClib.Algorithms.Graphs import dfs
+from DISClib.Algorithms.Graphs import dfo
 from DISClib.Algorithms.Graphs import dijsktra as djk
 from DISClib.Utils import error as error
 assert config
@@ -266,3 +268,8 @@ def compareroutes(route1, route2):
         return 1
     else:
         return -1
+# funciones del reto
+def ruta_resistencia(grafo, id_station, tiempo):
+    rta = dfs.DepthFirstSearch(grafo, id_station)
+    return rta  
+
