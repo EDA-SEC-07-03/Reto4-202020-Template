@@ -42,7 +42,7 @@ operación seleccionada.
 # ___________________________________________________
 #  Variables
 # ___________________________________________________
-servicefile = 'Data/201801-1-citibike-tripdata.csv'
+servicefile = '201801-1-citibike-tripdata.csv'
 initialStation = None
 recursionLimit = 20000
 # ___________________________________________________
@@ -54,6 +54,7 @@ def printMenu():
     print("Bienvenido")
     print("1- Inicializar Analizador")
     print("2- Cargar información de buses de singapur")
+    print("3- funcion 4")
     print("0-salir")
 """
 Menu principal
@@ -69,15 +70,11 @@ def menu_principal():
         elif int(inputs[0]) == 2:
             print("\nCargando información de transporte de singapur ....")
             controller.loadServices(cont, servicefile)
-            numedges = controller.totalConnections(cont)
-            numvertex = controller.totalStops(cont)
-            print('Numero de vertices: ' + str(numvertex))
-            print('Numero de arcos: ' + str(numedges))
-            print('El limite de recursion actual: ' + str(sys.getrecursionlimit()))
-            sys.setrecursionlimit(recursionLimit)
-            print('El limite de recursion se ajusta a: ' + str(recursionLimit))
-            executiontime = timeit.timeit(optionTwo, number=1)
-            print("Tiempo de ejecución: " + str(executiontime))
+        elif int(inputs[0]) == 3:
+            tiempo = int(input("coloque el tiempo de resistencia: "))
+            id_station = int(input("coloque el id de la estacion de su interes: "))
+            y = controller.minimumCostPaths(cont, id_station)
+            print(y)
         else:
             sys.exit(0)
 menu_principal()

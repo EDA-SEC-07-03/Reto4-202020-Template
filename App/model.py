@@ -29,6 +29,7 @@ from DISClib.ADT import map as m
 from DISClib.ADT import list as lt
 from DISClib.DataStructures import listiterator as it
 from DISClib.Algorithms.Graphs import scc
+from DISClib.Algorithms.Graphs import dfs
 from DISClib.Algorithms.Graphs import dfo
 from DISClib.Algorithms.Graphs import dijsktra as djk
 from DISClib.Utils import error as error
@@ -74,7 +75,7 @@ def newAnalyzer():
 
 # Funciones para agregar informacion al grafo
 
-def addStopConnection(analyzer, lastservice, service):
+def addStopConnection(analyzer, lastservice, servicess, service):
     """
     Adiciona las estaciones al grafo como vertices y arcos entre las
     estaciones adyacentes.
@@ -87,10 +88,10 @@ def addStopConnection(analyzer, lastservice, service):
     Si la estacion sirve otra ruta, se tiene: 75009-101
     """
     try:
-        origin = formatVertex(lastservice)
-        destination = formatVertex(service)
+        origin = servicess
+        destination = lastservice
         addStation(analyzer, origin)
-        time = service['tripduration']
+        time = str(service['tripduration'])
         addStation(analyzer, destination)
         addConnection(analyzer, origin, destination, time)
         return analyzer
@@ -202,13 +203,13 @@ def servedRoutes(analyzer):
     Si existen varias rutas con el mismo numero se
     retorna una de ellas
     """
-    lstvert = m.keySet(analyzer['stops'])
+    lstvert = m.keySet(analyzer['stations'])
     itlstvert = it.newIterator(lstvert)
     maxvert = None
     maxdeg = 0
     while(it.hasNext(itlstvert)):
         vert = it.next(itlstvert)
-        lstroutes = m.get(analyzer['stops'], vert)['value']
+        lstroutes = m.get(analyzer['stations'], vert)['value']
         degree = lt.size(lstroutes)
         if(degree > maxdeg):
             maxvert = vert
@@ -220,15 +221,13 @@ def servedRoutes(analyzer):
 # Funciones Helper
 # ==============================
 
-def cleanServiceDistance(lastservice, service):
+def cleanServiceDistance(service):
     """
     En caso de que el archivo tenga un espacio en la
     distancia, se reemplaza con cero.
     """
-    if service['Distance'] == '':
-        service['Distance'] = 0
-    if lastservice['Distance'] == '':
-        lastservice['Distance'] = 0
+    if int(service['tripduration']) == '':
+        service['tripduration'] = 0
 
 
 def formatVertex(service):
@@ -236,8 +235,8 @@ def formatVertex(service):
     Se formatea el nombrer del vertice con el id de la estación
     seguido de la ruta.
     """
-    name = service['start station id'] + '-'
-    name = name + service['ServiceNo']
+    name = service['start station name'] + '-'
+    name = name + service['start station id']
     return name
 
 
@@ -270,10 +269,7 @@ def compareroutes(route1, route2):
     else:
         return -1
 # funciones del reto
-def ruta_resistencia(tiempo, id_estacion, grafo):
-    resistencia = 0
-    rta = []
-    while resistencia <= tiempo:
-        x = dfo.DepthFirstOrder(grafo)
-        dfo.dfsVertex(grafo, x, id_estacion)
+def ruta_resistencia(grafo, id_station, tiempo):
+    rta = dfs.DepthFirstSearch(grafo, id_station)
+    return rta  
 

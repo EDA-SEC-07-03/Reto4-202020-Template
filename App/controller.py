@@ -71,9 +71,9 @@ def loadServices(analyzer, servicesfile):
     for service in input_file:
         servicess = service['start station id']
         lastservice = service['end station id']
-        model.addStopConnection(analyzer, lastservice, servicess, service)
-        x += 1
-    model.addRouteConnections(analyzer)
+        if lastservice and servicess != None:
+            model.addStopConnection(analyzer, lastservice, servicess, service)
+            model.addRouteConnections(analyzer)
     return (analyzer,x)
 
 # ___________________________________________________
@@ -130,3 +130,7 @@ def servedRoutes(analyzer):
     """
     maxvert, maxdeg = model.servedRoutes(analyzer)
     return maxvert, maxdeg
+
+def ruta_resistencia(analyser, id_station, tiempo):
+    x = model.ruta_resistencia(analyser, id_station,tiempo)
+    return x
