@@ -24,6 +24,9 @@
  *
  """
 import config as cf
+from DISClib.ADT.graph import gr
+from DISClib.ADT import list as lt
+from DISClib.ADT import map as mp
 from App import model
 import csv
 
@@ -67,14 +70,28 @@ def loadServices(analyzer, servicesfile):
     servicesfile = cf.data_dir + servicesfile
     input_file = csv.DictReader(open(servicesfile, encoding="utf-8"),
                                 delimiter=",")
-    x = 0
     for service in input_file:
         servicess = service['start station id']
         lastservice = service['end station id']
-        if lastservice and servicess != None:
-            model.addStopConnection(analyzer, lastservice, servicess, service)
-            model.addRouteConnections(analyzer)
-    return (analyzer,x)
+        tuplencio = (servicess, lastservice)
+        mapa = mp.newMap()
+        if (lastservice != None) and (servicess != None):
+            if mp.contains(mapa, tuplencio) == False:   
+                model.agregar_camino(analyzer, servicess, lastservice, service)
+                lst = lt.newList()
+                lt.addFirst(lst,int(service['tripduration']))
+                mp.put(mapa, tuplencio, lst)
+            else:
+                z = int(service['tripduration'])
+                lt.addFirst(mp.get(mapa,tuplencio), z)
+                for i in mp.get(mapa,tuplencio):
+                    x = lt.getElement(mp.get(mapa,tuplencio),i)
+                    suma += x
+                promedio = suma/lt.size(mp.get(mapa,tuplencio)) 
+                gr.addEdge(analyzer,servicess, lastservice, promedio)
+            
+    
+    return analyzer
 
 # ___________________________________________________
 #  Funciones para consultas
