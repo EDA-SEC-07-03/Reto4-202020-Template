@@ -69,9 +69,9 @@ def menu_principal():
             print("\nInicializando....")
             cont = controller.init()
         elif int(inputs[0]) == 2:
-            print("\nCargando información de transporte de singapur ....")
+            print("\nCargando información de bicicletas ....")
             controller.loadServices(cont, servicefile)
-            print(type(cont))
+            
         elif int(inputs[0]) == 3:
             id_station = input("coloque el id de la estacion de su interes: ")
             y = controller.minimumCostPaths(cont, id_station)
