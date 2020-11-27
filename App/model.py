@@ -98,6 +98,13 @@ def addStopConnection(analyzer, lastservice, servicess, service):
     except Exception as exp:
         error.reraise(exp, 'model:addStopConnection')
 
+def agregar_camino(analyser, initial_id, dest_id, server):
+    time = int(server['tripduration'])
+    addStation(analyser, initial_id)
+    addStation(analyser, dest_id)
+    addConnection(analyser, initial_id, dest_id, time)
+    return analyser
+
 
 def addStation(analyzer, stationid):
     """
@@ -109,29 +116,6 @@ def addStation(analyzer, stationid):
         return analyzer
     except Exception as exp:
         error.reraise(exp, 'model:addstop')
-
-
-def addRouteConnections(analyzer):
-    """
-    Por cada vertice (cada estacion) se recorre la lista
-    de rutas servidas en dicha estación y se crean
-    arcos entre ellas para representar el cambio de ruta
-    que se puede realizar en una estación.
-    """
-    lststops = m.keySet(analyzer['stations'])
-    stopsiterator = it.newIterator(lststops)
-    while it.hasNext(stopsiterator):
-        key = it.next(stopsiterator)
-        lstroutes = m.get(analyzer['stations'], key)['value']
-        prevrout = None
-        routeiterator = it.newIterator(lstroutes)
-        while it.hasNext(routeiterator):
-            route = key + '-' + it.next(routeiterator)
-            if prevrout is not None:
-                addConnection(analyzer, prevrout, route, 0)
-                addConnection(analyzer, route, prevrout, 0)
-            prevrout = route
-
 
 def addConnection(analyzer, origin, destination, time):
     """
@@ -272,4 +256,3 @@ def compareroutes(route1, route2):
 def ruta_resistencia(grafo, id_station, tiempo):
     rta = dfs.DepthFirstSearch(grafo, id_station)
     return rta  
-
