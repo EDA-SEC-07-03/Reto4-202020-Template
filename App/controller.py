@@ -27,6 +27,7 @@ import config as cf
 from DISClib.ADT.graph import gr
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
+from DISClib.ADT import map as mp
 from App import model
 import csv
 
@@ -73,22 +74,26 @@ def loadServices(analyzer, servicesfile):
     for service in input_file:
         servicess = service['start station id']
         lastservice = service['end station id']
+        year = service['birth year']
+        edades_inicio = mp.newMap()
         tuplencio = (servicess, lastservice)
         mapa = mp.newMap()
+        rango = model.darRango(year)
         if (lastservice != None) and (servicess != None):
             if mp.contains(mapa, tuplencio) == False:   
                 model.agregar_camino(analyzer, servicess, lastservice, service)
                 lst = lt.newList()
                 lt.addFirst(lst,int(service['tripduration']))
-                mp.put(mapa, tuplencio, lst)
+                mp.put(mapa, tuplencio, lst)          
             else:
+                mp.put(edades_inicio, rango, servicess)
                 z = int(service['tripduration'])
                 lt.addFirst(mp.get(mapa,tuplencio), z)
                 for i in mp.get(mapa,tuplencio):
                     x = lt.getElement(mp.get(mapa,tuplencio),i)
                     suma += x
                 promedio = suma/lt.size(mp.get(mapa,tuplencio)) 
-                gr.addEdge(analyzer,servicess, lastservice, promedio)
+                gr.addEdge(analyzer['connections'],servicess, lastservice, promedio)
             
     
     return analyzer

@@ -54,7 +54,7 @@ def printMenu():
     print("*******************************************")
     print("Bienvenido")
     print("1- Inicializar Analizador")
-    print("2- Cargar información de buses de singapur")
+    print("2- Cargar información de biciletas")
     print("3- funcion 4")
     print("0-salir")
 """
@@ -73,8 +73,10 @@ def menu_principal():
             controller.loadServices(cont, servicefile)
             
         elif int(inputs[0]) == 3:
+            tiempo = int(input("Ponga el tiempo de resistencia: "))
             id_station = input("coloque el id de la estacion de su interes: ")
-            y = controller.minimumCostPaths(cont, id_station)
+            y = controller.ruta_resistencia(cont, id_station, tiempo)
+            print(y)
         else:
             sys.exit(0)
 menu_principal()
