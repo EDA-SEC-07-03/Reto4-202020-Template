@@ -85,10 +85,7 @@ def menu_principal():
             print("El top 3 de estaciones de salida",str(estaciones_de_salida))
             print("El top 3 de las menos usadas",str(estaciones_menos_usadas))
 
-
         else:
             sys.exit(0)
 menu_principal()
         
-
-

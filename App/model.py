@@ -200,18 +200,16 @@ def servedRoutes(analyzer):
             maxdeg = degree
     return maxvert, maxdeg
 
-#///////////////////////////////////////////////////////#    
-"///////////////////////////////////////////////////////"
-#///////////////////////////////////////////////////////#
+
 
 def top3_estaciones_de_llegada(analyzer):
     "retorna el nombre de top3 estaciones de llegada"
-    lista_vertices=gr.vertices(analyzer["graph"])
+    lista_vertices=gr.vertices(analyzer["connections"])
     first_iterator=it.newIterator(lista_vertices)
     dic_estaciones={}
     while it.hasNext(first_iterator):
         estacion=it.next(first_iterator)
-        viajes=gr.indegree(analyzer["graph"], estacion)
+        viajes=gr.indegree(analyzer["connections"], estacion)
         dic_estaciones[estacion]=viajes
         estaciones= saber_los_mayores(dic_estaciones)
         rta_1 = buscar_info_estacion(estaciones[0],analyzer)
@@ -221,12 +219,12 @@ def top3_estaciones_de_llegada(analyzer):
         return rta
 def top3_estaciones_de_salida(analyzer):
     "retorna el nombre de top3 estaciones de salida"
-    lista_vertices=gr.vertices(analyzer["graph"])
+    lista_vertices=gr.vertices(analyzer["connections"])
     first_iterator=it.newIterator(lista_vertices)
     dic_estaciones={}
     while it.hasNext(first_iterator):
         estacion=it.next(first_iterator)
-        viajes=gr.outdegree(analyzer["graph"], estacion)
+        viajes=gr.outdegree(analyzer["connections"], estacion)
         dic_estaciones[estacion]=viajes
         estaciones= saber_los_mayores(dic_estaciones)
         rta_1 = buscar_info_estacion(estaciones[0],analyzer)
@@ -237,12 +235,12 @@ def top3_estaciones_de_salida(analyzer):
 
 def las3_menos_usadas(analyzer):
     "retorna el nombre de  top3 estaciones con menos uso"
-    lista_vertices=gr.vertices(analyzer["graph"])
+    lista_vertices=gr.vertices(analyzer["connections"])
     first_iterator=it.newIterator(lista_vertices)
     dic_estaciones={}
     while it.hasNext(first_iterator):
         estacion=it.next(first_iterator)
-        viajes=gr.degree(analyzer["graph"], estacion)
+        viajes=gr.degree(analyzer["connections"], estacion)
         dic_estaciones[estacion]=viajes
         estaciones= saber_los_menores(dic_estaciones)
         rta_1 = buscar_info_estacion(estaciones[0],analyzer)
@@ -261,6 +259,7 @@ def las3_menos_usadas(analyzer):
 def saber_los_mayores(dic):
     lista =list(dic.values())
     lista.sort()
+    
     primer_mayor = lista[-1]
     segundo_mayor= lista[-2]
     tercer_mayor = lista[-3]
@@ -294,9 +293,7 @@ def buscar_info_estacion(id,analyzer):
 
 
 
-#///////////////////////////////////////////////////////#    
-"///////////////////////////////////////////////////////"
-#///////////////////////////////////////////////////////#
+
 
 
 
