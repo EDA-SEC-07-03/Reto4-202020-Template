@@ -41,6 +41,15 @@ recae sobre el controlador.
 # ___________________________________________________
 
 
+def init():
+    """
+    Llama la funcion de inicializacion  del modelo.
+    """
+    # analyzer es utilizado para interactuar con el modelo
+    analyzer = model.newAnalyzer()
+    return analyzer
+
+
 # ___________________________________________________
 #  Funciones para la carga de datos y almacenamiento
 #  de datos en los modelos
@@ -49,3 +58,18 @@ recae sobre el controlador.
 # ___________________________________________________
 #  Funciones para consultas
 # ___________________________________________________
+
+def top3_estaciones_de_llegada(Analyzer):
+    "top3 estaciones de llegada"
+    graph=Analyzer
+    return model.top_estaciones_de_llegada(graph)
+
+def top3_estaciones_de_salida(Analyzer):
+    "top3 estaciones de salida"
+    graph=Analyzer
+    return model.top_estaciones_de_salida(graph)
+
+def las3_menos_usadas(Analyzer):
+    "3 estaciones menos usadas"
+    graph=Analyzer
+    return model.las3_menos_usadas(graph)

@@ -30,6 +30,7 @@ import config
 from App import controller
 from DISClib.ADT import stack
 import timeit
+from time import process_time
 assert config
 
 """
@@ -42,12 +43,46 @@ operación seleccionada.
 # ___________________________________________________
 #  Variables
 # ___________________________________________________
-
-
+servicefile = '201801-1-citibike-tripdata.csv'
+initialStation = None
+recursionLimit = 20000
 # ___________________________________________________
 #  Menu principal
 # ___________________________________________________
-
+def printMenu():
+    print("\n")
+    print("*******************************************")
+    print("Bienvenido")
+    print("1- Inicializar Analizador")
+    print("2- Cargar información de buses de singapur")
+    print("3- funcion 4")
+    print("4- funcion 3")
+    print("0-salir")
 """
 Menu principal
 """
+def menu_principal():
+    while True:
+        printMenu()
+        inputs = input('Seleccione una opción para continuar\n>')
+        
+        if int(inputs[0]) == 1:
+            print("\nInicializando....")
+            cont = controller.init()
+        elif int(inputs[0]) == 2:
+            print("\nCargando información de bicicletas ....")
+            controller.loadServices(cont, servicefile)
+            
+        elif int(inputs[0]) == 3:
+            id_station = input("coloque el id de la estacion de su interes: ")
+            y = controller.minimumCostPaths(cont, id_station)
+
+        elif int(inputs[0]) == 4:
+            id_station = input("coloque el id de la estacion de su interes: ")
+            y = controller.minimumCostPaths(cont, id_station)
+        else:
+            sys.exit(0)
+menu_principal()
+        
+
+
