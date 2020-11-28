@@ -27,10 +27,7 @@ import config as cf
 from DISClib.ADT.graph import gr
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
-<<<<<<< HEAD
-=======
 from DISClib.ADT import map as mp
->>>>>>> j.quirogar
 from App import model
 import csv
 
