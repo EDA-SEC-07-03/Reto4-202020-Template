@@ -98,6 +98,21 @@ def loadServices(analyzer, servicesfile):
 # ___________________________________________________
 
 
+def top3_estaciones_de_llegada(Analyzer):
+    "top3 estaciones de llegada"
+    graph=Analyzer
+    return model.top3_estaciones_de_llegada(graph)
+
+def top3_estaciones_de_salida(Analyzer):
+    "top3 estaciones de salida"
+    graph=Analyzer
+    return model.top3_estaciones_de_salida(graph)
+
+def las3_menos_usadas(Analyzer):
+    "3 estaciones menos usadas"
+    graph=Analyzer
+    return model.las3_menos_usadas(graph)
+
 def totalStops(analyzer):
     """
     Total de paradas de autobus
@@ -151,3 +166,5 @@ def servedRoutes(analyzer):
 def ruta_resistencia(analyser, id_station, tiempo):
     x = model.ruta_resistencia(analyser, id_station,tiempo)
     return x
+
+

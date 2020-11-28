@@ -56,6 +56,7 @@ def printMenu():
     print("1- Inicializar Analizador")
     print("2- Cargar información de buses de singapur")
     print("3- funcion 4")
+    print("4- funcion 3")
     print("0-salir")
 """
 Menu principal
@@ -75,9 +76,16 @@ def menu_principal():
         elif int(inputs[0]) == 3:
             id_station = input("coloque el id de la estacion de su interes: ")
             y = controller.minimumCostPaths(cont, id_station)
+
+        elif int(inputs[0]) == 4:
+            estaciones_de_llegada= controller.top3_estaciones_de_llegada(cont)
+            estaciones_de_salida = controller.top3_estaciones_de_salida(cont)
+            estaciones_menos_usadas = controller.las3_menos_usadas(cont)
+            print("El top 3 de estaciones de llegada",str(estaciones_de_llegada))
+            print("El top 3 de estaciones de salida",str(estaciones_de_salida))
+            print("El top 3 de las menos usadas",str(estaciones_menos_usadas))
+
         else:
             sys.exit(0)
 menu_principal()
         
-
-

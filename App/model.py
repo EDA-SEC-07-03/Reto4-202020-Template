@@ -201,9 +201,102 @@ def servedRoutes(analyzer):
     return maxvert, maxdeg
 
 
+
+def top3_estaciones_de_llegada(analyzer):
+    "retorna el nombre de top3 estaciones de llegada"
+    lista_vertices=gr.vertices(analyzer["connections"])
+    first_iterator=it.newIterator(lista_vertices)
+    dic_estaciones={}
+    while it.hasNext(first_iterator):
+        estacion=it.next(first_iterator)
+        viajes=gr.indegree(analyzer["connections"], estacion)
+        dic_estaciones[estacion]=viajes
+        estaciones= saber_los_mayores(dic_estaciones)
+        rta_1 = buscar_info_estacion(estaciones[0],analyzer)
+        rta_2 = buscar_info_estacion(estaciones[1],analyzer)
+        rta_3 = buscar_info_estacion(estaciones[2],analyzer)
+        rta = [rta_1["name"],rta_2["name"],rta_3["name"]]
+        return rta
+def top3_estaciones_de_salida(analyzer):
+    "retorna el nombre de top3 estaciones de salida"
+    lista_vertices=gr.vertices(analyzer["connections"])
+    first_iterator=it.newIterator(lista_vertices)
+    dic_estaciones={}
+    while it.hasNext(first_iterator):
+        estacion=it.next(first_iterator)
+        viajes=gr.outdegree(analyzer["connections"], estacion)
+        dic_estaciones[estacion]=viajes
+        estaciones= saber_los_mayores(dic_estaciones)
+        rta_1 = buscar_info_estacion(estaciones[0],analyzer)
+        rta_2 = buscar_info_estacion(estaciones[1],analyzer)
+        rta_3 = buscar_info_estacion(estaciones[2],analyzer)
+        rta = [rta_1["name"],rta_2["name"],rta_3["name"]]
+        return rta
+
+def las3_menos_usadas(analyzer):
+    "retorna el nombre de  top3 estaciones con menos uso"
+    lista_vertices=gr.vertices(analyzer["connections"])
+    first_iterator=it.newIterator(lista_vertices)
+    dic_estaciones={}
+    while it.hasNext(first_iterator):
+        estacion=it.next(first_iterator)
+        viajes=gr.degree(analyzer["connections"], estacion)
+        dic_estaciones[estacion]=viajes
+        estaciones= saber_los_menores(dic_estaciones)
+        rta_1 = buscar_info_estacion(estaciones[0],analyzer)
+        rta_2 = buscar_info_estacion(estaciones[1],analyzer)
+        rta_3 = buscar_info_estacion(estaciones[2],analyzer)
+        rta = [rta_1["name"],rta_2["name"],rta_3["name"]]
+        return rta
+
+    
+
+
 # ==============================
-# Funciones Helper
+# Funciones Help
 # ==============================
+
+def saber_los_mayores(dic):
+    lista =list(dic.values())
+    lista.sort()
+    
+    primer_mayor = lista[-1]
+    segundo_mayor= lista[-2]
+    tercer_mayor = lista[-3]
+    listaa=[]
+    for i in dic:
+        if dic[i]== primer_mayor or dic[i]==segundo_mayor or dic[i]==tercer_mayor and dic[i]:
+            listaa.append(i)
+    rta=[listaa[0],listaa[1],listaa[2]]
+    return rta
+
+
+def saber_los_menores(dic):
+    lista =list(dic.values())
+    lista.sort()
+    primer_mayor = lista[1]
+    segundo_mayor= lista[2]
+    tercer_mayor = lista[3]
+    listaa=[]
+    for i in dic:
+        if dic[i]== primer_mayor or dic[i]==segundo_mayor or dic[i]==tercer_mayor and dic[i]:
+            listaa.append(i)
+    rta=[listaa[0],listaa[1],listaa[2]]
+    return rta
+
+def buscar_info_estacion(id,analyzer):
+    "busca info de la estacion"
+    infor= analyzer["info"]
+    entrada = m.get(infor, id)
+    valor= me.getValue(entrada) # me.get value no sta
+    return valor
+
+
+
+
+
+
+
 
 def cleanServiceDistance(service):
     """
