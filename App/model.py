@@ -285,12 +285,12 @@ def saber_los_menores(dic):
     rta=[listaa[0],listaa[1],listaa[2]]
     return rta
 
-def buscar_info_estacion(id,analyzer )
-"busca info de la estacion"
-infor= analyzer["info"]
-entrada = m.get(infor, id)
-valor= me.getValue(entrada) # me.get value no sta
-return valor
+def buscar_info_estacion(id,analyzer):
+    "busca info de la estacion"
+    infor= analyzer["info"]
+    entrada = m.get(infor, id)
+    valor= me.getValue(entrada) # me.get value no sta
+    return valor
 
 
 

@@ -78,8 +78,14 @@ def menu_principal():
             y = controller.minimumCostPaths(cont, id_station)
 
         elif int(inputs[0]) == 4:
-            id_station = input("coloque el id de la estacion de su interes: ")
-            y = controller.minimumCostPaths(cont, id_station)
+            estaciones_de_llegada= controller.top3_estaciones_de_llegada(cont)
+            estaciones_de_salida = controller.top3_estaciones_de_salida(cont)
+            estaciones_menos_usadas = controller.las3_menos_usadas(cont)
+            print("El top 3 de estaciones de llegada",str(estaciones_de_llegada))
+            print("El top 3 de estaciones de salida",str(estaciones_de_salida))
+            print("El top 3 de las menos usadas",str(estaciones_menos_usadas))
+
+
         else:
             sys.exit(0)
 menu_principal()
