@@ -54,13 +54,12 @@ def newAnalyzer():
     """
     try:
         analyzer = {
-                    'stations': None,
+                    'year': None,
                     'connections': None,
                     'components': None,
                     'paths': None
                     }
-
-        analyzer['stations'] = m.newMap(numelements=14000,
+        analyzer['year'] = m.newMap(numelements=14000,
                                      maptype='PROBING',
                                      comparefunction=compareStopIds)
 
@@ -125,7 +124,39 @@ def addConnection(analyzer, origin, destination, time):
     if edge is None:
         gr.addEdge(analyzer['connections'], origin, destination, time)
     return analyzer
-
+def addYearofBirth(analyser, year, route):
+    resta = 2020-year
+    rango = ""
+    if resta >= 0 and resta <= 10:
+        rango = "0-10"
+    if resta >= 11 and resta <= 20:
+        rango = "11-20"
+    if resta >= 21 and resta <= 30:
+        rango = "21-30"
+    if resta >= 41 and resta <= 50:
+        rango = "41-50"
+    if resta >= 51 and resta <= 60:
+        rango = "51-60"
+    else:
+        rango = "+60"  
+    m.put(analyser['year'], rango, route)
+    return analyser
+def darRango(year):
+    resta = 2020-year
+    rango = ""
+    if resta >= 0 and resta <= 10:
+        rango = "0-10"
+    if resta >= 11 and resta <= 20:
+        rango = "11-20"
+    if resta >= 21 and resta <= 30:
+        rango = "21-30"
+    if resta >= 41 and resta <= 50:
+        rango = "41-50"
+    if resta >= 51 and resta <= 60:
+        rango = "51-60"
+    else:
+        rango = "+60"  
+    return rango
 # ==============================
 # Funciones de consulta
 # ==============================
@@ -347,6 +378,21 @@ def compareroutes(route1, route2):
         return -1
 # funciones del reto
 def ruta_resistencia(grafo, id_station, tiempo):
-    rta = dfs.DepthFirstSearch(grafo, id_station)
-    return rta  
-
+    x = dfs.DepthFirstSearch(grafo['connections'], id_station)
+    resistencia = 0
+    ubicacion = x['visited']['table']['elements']
+    dic = {}
+    z = 0
+    while resistencia <= tiempo:
+        y = ubicacion[z]
+        if y['key'] != None and y['value']['edgeTo'] != None:
+            tuplencio = (y['value']['edgeTo'], y['key'])
+            concatenado = gr.getEdge(grafo['connections'], y['value']['edgeTo'], y['key'])['weight']
+            dic[tuplencio] = concatenado            
+            resistencia = resistencia + concatenado
+            z += 1
+        else:
+            z += 1
+        if len(ubicacion)-1 <= z:
+            resistencia = tiempo
+    return dic

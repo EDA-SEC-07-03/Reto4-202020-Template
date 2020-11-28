@@ -54,7 +54,7 @@ def printMenu():
     print("*******************************************")
     print("Bienvenido")
     print("1- Inicializar Analizador")
-    print("2- Cargar información de buses de singapur")
+    print("2- Cargar información de biciletas")
     print("3- funcion 4")
     print("4- funcion 3")
     print("0-salir")
@@ -75,8 +75,10 @@ def menu_principal():
             
         elif int(inputs[0]) == 3:
             id_station = input("coloque el id de la estacion de su interes: ")
-            y = controller.minimumCostPaths(cont, id_station)
-
+            tiempo = int(input("Ponga el tiempo de resistencia: "))
+            id_station = input("coloque el id de la estacion de su interes: ")
+            y = controller.ruta_resistencia(cont, id_station, tiempo)
+            print(y)
         elif int(inputs[0]) == 4:
             estaciones_de_llegada= controller.top3_estaciones_de_llegada(cont)
             estaciones_de_salida = controller.top3_estaciones_de_salida(cont)
@@ -85,6 +87,10 @@ def menu_principal():
             print("El top 3 de estaciones de salida",str(estaciones_de_salida))
             print("El top 3 de las menos usadas",str(estaciones_menos_usadas))
 
+            tiempo = int(input("Ponga el tiempo de resistencia: "))
+            id_station = input("coloque el id de la estacion de su interes: ")
+            y = controller.ruta_resistencia(cont, id_station, tiempo)
+            print(y)
         else:
             sys.exit(0)
 menu_principal()

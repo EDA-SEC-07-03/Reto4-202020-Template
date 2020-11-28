@@ -27,6 +27,10 @@ import config as cf
 from DISClib.ADT.graph import gr
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
+<<<<<<< HEAD
+=======
+from DISClib.ADT import map as mp
+>>>>>>> j.quirogar
 from App import model
 import csv
 
@@ -88,7 +92,7 @@ def loadServices(analyzer, servicesfile):
                     x = lt.getElement(mp.get(mapa,tuplencio),i)
                     suma += x
                 promedio = suma/lt.size(mp.get(mapa,tuplencio)) 
-                gr.addEdge(analyzer,servicess, lastservice, promedio)
+                gr.addEdge(analyzer['connections'],servicess, lastservice, promedio)
             
     
     return analyzer
